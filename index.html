@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Physics Console</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Roboto+Mono:wght@400;600&family=Vazirmatn:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+</head>
+<body>
+  <div class="app-wrap">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="branding">
+        <div class="brand-dot"></div>
+        <h1 id="title-text">Physics Console</h1>
+      </div>
+      <p id="subtitle-text" class="subtitle">Compute speed, velocity, and acceleration...</p>
+
+      <!-- Language Switch -->
+      <div class="lang-switch">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-fa" class="lang-btn">FA</button>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="app-main">
+      <!-- Tabs -->
+      <section class="panel">
+        <div class="tabs" role="tablist" aria-label="Computation type">
+          <button class="tab active" data-target="speed" aria-selected="true" id="tab-speed">Speed</button>
+          <button class="tab" data-target="velocity" aria-selected="false" id="tab-velocity">Velocity</button>
+          <button class="tab" data-target="acceleration" aria-selected="false" id="tab-acceleration">Acceleration</button>
+        </div>
+      </section>
+
+      <!-- Speed -->
+      <section id="speed" class="card visible" role="tabpanel" aria-hidden="false">
+        <div class="card-head">
+          <h2 id="speed-title">Speed</h2>
+          <div class="formula mono">Formula: \( v = \dfrac{d}{t} \)</div>
+        </div>
+
+        <form id="speed-form" class="form">
+          <div class="field">
+            <label for="distance" id="label-distance">Distance</label>
+            <div class="input-group">
+              <input id="distance" type="number" step="any" placeholder="e.g., 100" required />
+              <select id="distance-unit">
+                <option value="m">m</option>
+                <option value="km">km</option>
+                <option value="mi">mi</option>
+                <option value="ft">ft</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="time" id="label-time">Time</label>
+            <div class="input-group">
+              <input id="time" type="number" step="any" placeholder="e.g., 20" required />
+              <select id="time-unit">
+                <option value="s">s</option>
+                <option value="min">min</option>
+                <option value="h">h</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="speed-out-unit" id="label-output">Output unit</label>
+            <select id="speed-out-unit">
+              <option value="m/s">m/s</option>
+              <option value="km/h">km/h</option>
+              <option value="mph">mph</option>
+              <option value="ft/s">ft/s</option>
+            </select>
+          </div>
+
+          <button type="submit" class="primary" id="btn-compute-speed">Compute</button>
+        </form>
+
+        <div id="speed-result" class="result mono" aria-live="polite"></div>
+      </section>
+
+      <!-- Velocity -->
+      <section id="velocity" class="card" role="tabpanel" aria-hidden="true">
+        <div class="card-head">
+          <h2 id="velocity-title">Velocity</h2>
+          <div class="formula mono">Formula: \( v = \dfrac{\Delta x}{t} \)</div>
+        </div>
+
+        <form id="velocity-form" class="form">
+          <div class="field">
+            <label for="displacement" id="label-displacement">Displacement</label>
+            <div class="input-group">
+              <input id="displacement" type="number" step="any" placeholder="e.g., 80" required />
+              <select id="displacement-unit">
+                <option value="m">m</option>
+                <option value="km">km</option>
+                <option value="mi">mi</option>
+                <option value="ft">ft</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="time-vel" id="label-time-vel">Time</label>
+            <div class="input-group">
+              <input id="time-vel" type="number" step="any" placeholder="e.g., 20" required />
+              <select id="time-vel-unit">
+                <option value="s">s</option>
+                <option value="min">min</option>
+                <option value="h">h</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="velocity-out-unit" id="label-output-vel">Output unit</label>
+            <select id="velocity-out-unit">
+              <option value="m/s">m/s</option>
+              <option value="km/h">km/h</option>
+              <option value="mph">mph</option>
+              <option value="ft/s">ft/s</option>
+            </select>
+          </div>
+
+          <button type="submit" class="primary" id="btn-compute-velocity">Compute</button>
+        </form>
+
+        <div id="velocity-result" class="result mono" aria-live="polite"></div>
+      </section>
+
+      <!-- Acceleration -->
+      <section id="acceleration" class="card" role="tabpanel" aria-hidden="true">
+        <div class="card-head">
+          <h2 id="acceleration-title">Acceleration</h2>
+          <div class="formula mono">Formula: \( a = \dfrac{\Delta v}{\Delta t} \)</div>
+        </div>
+
+        <form id="acceleration-form" class="form">
+          <div class="field">
+            <label for="delta-v" id="label-delta-v">Velocity change</label>
+            <div class="input-group">
+              <input id="delta-v" type="number" step="any" placeholder="e.g., 10" required />
+              <select id="delta-v-unit">
+                <option value="m/s">m/s</option>
+                <option value="km/h">km/h</option>
+                <option value="mph">mph</option>
+                <option value="ft/s">ft/s</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="delta-t" id="label-delta-t">Time change</label>
+            <div class="input-group">
+              <input id="delta-t" type="number" step="any" placeholder="e.g., 5" required />
+              <select id="delta-t-unit">
+                <option value="s">s</option>
+                <option value="min">min</option>
+                <option value="h">h</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="acc-out-unit" id="label-output-acc">Output unit</label>
+            <select id="acc-out-unit">
+              <option value="m/s²">m/s²</option>
+              <option value="ft/s²">ft/s²</option>
+            </select>
+          </div>
+
+                    <button type="submit" class="primary" id="btn-compute-acc">Compute</button>
+        </form>
+
+        <div id="acceleration-result" class="result mono" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <small id="footer-text">Physics Console — crafted by A</small>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js" defer></script>
+</body>
+</html>
+
